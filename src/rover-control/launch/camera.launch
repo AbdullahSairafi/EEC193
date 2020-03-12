@@ -1,0 +1,24 @@
+<launch>
+    <!-- Launch Zed Camera -->
+    <include file="$(find zed_wrapper)/launch/zed.launch">
+		<arg name="camera_model"       value="zed" /> 
+	</include>
+
+    <!-- Launch RTABMap -->
+    <include file="$(find rtabmap_ros)/launch/champ-rtabmap.launch">
+
+        <arg name="rtabmap_args"		value="--delete_db_on_start" />
+        <arg name="rgb_topic"			value="/zed/zed_node/rgb/image_rect_color" />
+        <arg name="depth_topic"			value="/zed/zed_node/depth/depth_registered" />
+        <arg name="camera_info_topic"	value="/zed/zed_node/rgb/camera_info" />
+        <arg name="frame_id"			value="base_link" />
+        <arg name="approx_sync"			value="false" />
+        <arg name="visual_odometry"		value="false" />
+        <arg name="odom_topic"			value="/zed/zed_node/odom" />
+	</include> 
+
+	<!-- Launch Controler -->
+	<include file= "$(find donkey_car)/launch/keyboard_demo.launch">
+	</include>
+</launch>
+
