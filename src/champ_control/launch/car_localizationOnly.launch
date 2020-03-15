@@ -1,13 +1,18 @@
 <launch>
     <!-- Launch Zed Camera -->
     <include file="$(find zed_wrapper)/launch/zed.launch">
-		<arg name="camera_model"       value="zed" /> 
+		<arg name="camera_model"       value="zed" />
+		
+		<!-- Set TF frame of camera with relation to car center -->
+		<arg name="cam_pos_x"			value="0.1461" />		
+		<arg name="cam_pos_y"			value="-0.0254" />
+		<arg name="cam_pos_z"			value="0.0857" />
 	</include>
 
     <!-- Launch RTABMap -->
-    <include file="$(find rtabmap_ros)/launch/champ-rtabmap.launch">
+    <include file="$(find rtabmap_ros)/launch/champ_rtabmap.launch">
 
-        <arg name="rtabmap_args"		value="--delete_db_on_start" />
+        <arg name="localization"		value="false" />
         <arg name="rgb_topic"			value="/zed/zed_node/rgb/image_rect_color" />
         <arg name="depth_topic"			value="/zed/zed_node/depth/depth_registered" />
         <arg name="camera_info_topic"	value="/zed/zed_node/rgb/camera_info" />
@@ -15,6 +20,10 @@
         <arg name="approx_sync"			value="false" />
         <arg name="visual_odometry"		value="false" />
         <arg name="odom_topic"			value="/zed/zed_node/odom" />
+
+	<!-- Output -->
+	<remap from="grid_map" to="map" />
+
 	</include> 
 
 	<!-- Launch Controler -->
@@ -22,8 +31,8 @@
 	</include>
 
 	<!-- Launch Move_Bass -->
-	<node pkg="move_base" type="move_base" name="move_bass" >
-		<remap from="odom" to="/zed/zed_node/odom"/>
-	</node>
+	<include file="$(find champ_control)/launch/move_base.launch" >
+	</include>
+	
 </launch>
 

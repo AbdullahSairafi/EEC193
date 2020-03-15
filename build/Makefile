@@ -294,7 +294,7 @@ _catkin_empty_exported_target: cmake_check_build_system
 
 # fast build rule for target.
 _catkin_empty_exported_target/fast:
-	$(MAKE) -f donkey_car/CMakeFiles/_catkin_empty_exported_target.dir/build.make donkey_car/CMakeFiles/_catkin_empty_exported_target.dir/build
+	$(MAKE) -f champ_control/CMakeFiles/_catkin_empty_exported_target.dir/build.make champ_control/CMakeFiles/_catkin_empty_exported_target.dir/build
 .PHONY : _catkin_empty_exported_target/fast
 
 #=============================================================================
